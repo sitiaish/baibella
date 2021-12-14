@@ -1,0 +1,184 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bai Bella</title>
+    <!-- CSS only -->
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script> 
+    <script src="https://cdn.tailwindcss.com"></script>
+
+  </head>
+
+  <style>
+    body {
+      background-color: #f5f4f0;
+    }
+
+    a {
+      font-weight: 600;
+      text-decoration: underline !important;
+    }
+    
+    div.chart-wrapper {
+      position: relative;
+    }    
+
+    div.tooltip {
+      position: absolute;
+      top: 0px;
+      width: auto;
+      max-width: 200px;
+      height: auto;
+      background: #C6d8d3;
+      padding: 8px;
+      color: #3A3335;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .comic-panel img {
+      border: 10px solid white;
+    }
+  </style>
+<body>
+<div class="container mx-auto py-24 landing">
+  <div class="grid grid-cols-1 gap-4 max-w-md mx-auto sm:grid-cols-3 max-w-4xl mb-12">
+    <div>
+      <img class="transform md:hover:rotate-180" src="data/bella.png" width="100%"/>
+      <p class="text-sm font-mono mb-12">
+        (I cropped this from instagram)
+      </p>
+    </div>
+
+    <div class="col-span-2">
+      <p class="text-5xl font-mono mb-12">
+        Hi there <span class="md:hover:line-through">TunaBelly</span>/ 
+        <span class="md:hover:line-through">BellyComics</span> / 
+        <span class="md:hover:underline hover:text-red-600">Bella</span>
+      </p>
+
+      <p class="text-lg leading-relaxed	font-mono mb-6">
+        Here is a collection of the stories that you've worked on in Kontinentalist from early-2019 to end-2021!
+      </p>  
+      
+      <p class="text-lg leading-relaxed font-mono mb-8">
+        In the most <a href="https://kontinentalist.com/" target="_blank">Konti</a>-fashion, we collected data on the published stories that you did over three years and catalogued them by complexity (hm subjective), the tools that you used in the story, and the topics that you wrote on. <i>Bella's customs</i> highlights your personal touches to the story.
+      </p> 
+
+      <a href="/data/stories.csv" download="stories.csv">
+        <button class="bg-transparent font-mono hover:bg-red-600 font-semibold hover:text-white py-2 px-4 border border-gray-800 hover:border-transparent rounded inline-flex items-center" >
+          <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
+          Download dataset
+        </button>  
+      </a>    
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 gap-4 max-w-md mx-auto sm:grid-cols-1 max-w-4xl">
+    <div class='py-12'>
+      <p class="text-lg leading-relaxed font-mono text-center underline mb-8">
+        How to read the chart and stuffs
+      </p>
+
+      <div class="grid grid-cols-2 gap-x-16 max-w-md mx-auto md:grid-cols-3 max-w-5xl">
+        <div>        
+          <p class="text-md leading-tight font-mono text-center mb-6">
+            Complexity <br>(Bella stress-level: stressed or really stressed)
+          </p>          
+          <svg id="legend-1"></svg>
+        </div>
+    
+        <div>
+          <p class="text-md leading-tight font-mono text-center mb-6">
+            Tools in story <br>(Maps/ Bella's customs / Flourish)
+          </p>              
+          <svg id="legend-2"></svg>
+        </div>
+
+        <div>
+          <p class="text-md leading-tight font-mono text-center mb-6">
+            Story topics <br> (does Bella have a favourite?)
+          </p>              
+          <svg id="legend-3"></svg>
+        </div>        
+      </div>      
+    </div>
+  </div>    
+
+  <div class="grid grid-cols-1 gap-4 max-w-md mx-auto max-w-6xl mb-12">
+    <p class="text-lg leading-tight font-mono font-bold text-center mb-2">
+      A dataviz of all the data stories that Bella worked on in Kontinentalist
+    </p>
+
+    <p class="text-sm leading-relaxed font-mono text-center mb-8">
+      Each of these is a story/project that Bella worked on. <br>Click each item to go to the story page, hover to get more information on the story.
+    </p>
+
+
+    <div class="chart-wrapper">
+      <svg id="chart"></svg>
+      <div class="tooltip">
+        <p class="text-sm leading-tight mb-1 font-mono">
+          <span class="font-bold">Custom? </span><span id="custom-tooltip-value"></span>
+        </p>
+
+        <p class="text-sm leading-tight mb-1 font-mono">
+          <span class="font-bold">Bella says: </span><span id="hard-tooltip-value"></span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 gap-4 max-w-md mx-auto sm:grid-cols-1 max-w-4xl mb-12">
+    <div class='bg-red-100 py-8 px-4'>
+      <p class="text-sm mb-4 font-mono">
+        Is there an idea behind this design? Yes!
+      </p>
+      
+      <p class="text-sm mb-4 font-mono">
+        See, it kinda resembles all the working papers strewn over your work desk whenever you're on a story. The more complex the story, the messier it is, hence the legend.
+      </p>
+
+      <p class="text-sm mb-4 font-mono">
+        It also sorta looks like a present box with a nice bow at the top of it in the spirit of almost-Christmas. Or a geometrically shaped pot and the green thingys are small sprouts where <i>seedlings bloom into flowers</i>. 
+      </p>
+
+      <p class="text-sm mb-4 font-mono">
+        I keeed. Actually it's easier for me to code rects and circles haha. 
+      </p>
+
+      <p class="text-sm mb-4 font-mono">
+        (PS. I used HTML and Tailwind CSS for the hover interactions. The charts are made with D3. Sorry it's not that responsive :x)
+      </p>
+
+      <p class="text-sm font-mono">      
+        Also, pls use this to continue your coding journey! (Source-code is available on Github here)
+      </p>
+    </div>
+  </div>    
+
+  <div class="grid grid-cols-1 gap-4 max-w-md mx-auto sm:grid-cols-3 max-w-4xl comic-panel">
+    <div>
+      <img src="data/panel1.jpg" width="100%"/>
+    </div>
+
+    <div>
+      <img src="data/panel2.jpg" width="100%"/>
+    </div>
+    
+    <div>
+      <img src="data/panel3.jpg" width="100%"/>
+    </div>    
+  </div>
+  
+  <div class="grid grid-cols-1 gap-4 max-w-md mx-auto max-w-6xl mb-12">
+    <img src="data/panel3.jpg" width="100%"/>
+  </div>  
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.0.3/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rough.js/2.1.1/rough.js" integrity="sha512-sZtT5AmC0DFqxtF/WG8fUVvsum8ZkIoHa08hQO5css2CRXZrvMt9DwMZ4hFNQZiJtwZnmc413p/msPhYMyjlPA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="charts/bella.js"></script>
+<script src="charts/legend.js"></script>
+</body>
+</html>
